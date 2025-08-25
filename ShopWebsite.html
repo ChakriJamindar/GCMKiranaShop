@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gundu Kirana Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fdf6e3;
+      color: #333;
+    }
+    header {
+      background-color: #ff9800;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    section {
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    .products img {
+      width: 100%;
+      max-width: 150px;
+      height: auto;
+      margin: 10px;
+      border-radius: 8px;
+    }
+    .product-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+    }
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-contact input {
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      width: 100%;
+    }
+    .footer-contact label {
+      font-weight: bold;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5em;
+      }
+      section h2 {
+        font-size: 1.2em;
+      }
+      .product-gallery {
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer-contact {
+        font-size: 0.95em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 16px;
+      }
+      header, section, footer {
+        padding: 15px;
+      }
+      .products img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to Gundu Chinna Manikyala Rao Kirana Stores</h1>
+    <p>Get your groceries here</p>
+  </header>
+
+  <section class="products">
+    <h2>🧺 What We Sell</h2>
+    <p>We offer a wide range of daily essentials groceries and Dairy products,refined oils,Pooja essentials,bath and cleasing products.Our vegetable section includes only kitchen essentials like Onion,Potato,chilli and Ginger.</p>
+    <ul>
+      <li>Grains & Pulses</li>
+      <li>Spices & Masalas</li>
+      <li>Snacks & Biscuits</li>
+      <li>Cleaning Supplies</li>
+    </ul>
+    <div class="product-gallery">
+      <img src="https://via.placeholder.com/150?text=Rice+Bags" alt="Rice Bags">
+      <img src="https://via.placeholder.com/150?text=Spices" alt="Spices">
+      <img src="https://via.placeholder.com/150?text=Snacks" alt="Snacks">
+    </div>
+  </section>
+
+  <section class="owner">
+    <h2>👨‍💼 About Us</h2>
+    <p>Started in 1950's as a small shop. We won the goodwill and reputation of peoples and have decades old loyal customers.</p>
+  </section>
+
+  <section class="details">
+    <h2>📦 More Details</h2>
+    <p>We accept UPI and Cash payments. Home delivery available for bulk orders within 3 km radius</p>
+	<!-- Inside the <body> section -->
+<textarea id="itemList" placeholder="e.g., 1kg rice, 2 soaps..."></textarea>
+<button onclick="sendWhatsApp()">Send Your order via WhatsApp</button>
+
+<script>
+  function sendWhatsApp() {
+    const number = "919603814661"; // Your WhatsApp number
+    const message = encodeURIComponent(document.getElementById("itemList").value);
+    const url = `https://wa.me/${number}?text=${message}`;
+    window.open(url, '_blank');
+  }
+</script>
+  </section>
+
+  <footer>
+    <h2>📞 Contact Us</h2>
+    <div class="footer-contact">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="gundusubbarao4@gmail.com" readonly>
+
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" placeholder="+91 9247245817" readonly>
+
+      <label>Store Timings:</label>
+      <p>Monday–Sunday: 7 AM – 9 PM<br>Optional Holidays on Tuesday</p>
+
+      <label>Location:</label>
+      <p>Perupalem Line,Linepalem,Perupalem South Panchayat,AP,534281</p>
+	  <label>Find Us on Google Maps:</label>
+<p>
+  <a href="https://www.google.com/maps/place/Gundu+Chinna+manikyala+rao+kirana+stores/@16.3713225,81.5684614,19.55z/data=!4m6!3m5!1s0x3a37d5b8a3d2cd1b:0xf8f925df4b92a08!8m2!3d16.3711174!4d81.5679957!16s%2Fg%2F11h348c8k1?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color: #ffcc00;">
+    📍 View Location
+  </a>
+</p>
+    </div>
+  </footer>
+
+</body>
+</html>
