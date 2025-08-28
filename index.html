@@ -151,6 +151,13 @@
 <textarea id="itemList" placeholder="e.g., 1kg rice, 2 soaps..."></textarea>
 <button onclick="sendWhatsApp()">Send Your order via WhatsApp</button>
 <script>
+	function sendWhatsApp() {
+    const number = "919603814661"; // Your WhatsApp number
+    const message = encodeURIComponent(document.getElementById("itemList").value);
+    const url = `https://wa.me/${number}?text=${message}`;
+    window.open(url, '_blank');
+  }<script>
+
 function addPicker() {
   const container = document.getElementById('pickerContainer');
 
@@ -235,5 +242,6 @@ function confirmBasket() {
 
 </body>
 </html>
+
 
 
