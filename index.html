@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +87,7 @@
       .products img {
         max-width: 100%;
       }
-	  
+    }
 	.picker-group {
   display: flex;
   align-items: center;
@@ -111,8 +112,7 @@
 }
 .remove-btn:hover {
   background-color: #b71c1c;
-}  
-    }
+}
   </style>
 </head>
 <body>
@@ -132,12 +132,11 @@
       <li>Cleaning Supplies</li>
     </ul>
     <div class="product-gallery">
-     <img src="221C0982-1CA5-477C-AE05-F386E9016DD2.jpeg" alt="Image 1">
+      <img src="221C0982-1CA5-477C-AE05-F386E9016DD2.jpeg" alt="Image 1">
       <img src="C84161A9-5922-46A9-AA09-714507418129.jpeg" alt="Image 2">
       <img src="5609902A-BD5E-47B6-8078-DE36724E7979.jpeg" alt="Image 3">
 	  <img src="DF1EE385-E7D5-43C0-9594-1C92886E10BE.jpeg" alt="Image 4">		
-   </div>
-  </section>
+    </div></section>
 
   <section class="owner">
     <h2>👨‍💼 About Us</h2>
@@ -150,14 +149,53 @@
 	<!-- Inside the <body> section -->
 <textarea id="itemList" placeholder="e.g., 1kg rice, 2 soaps..."></textarea>
 <button onclick="sendWhatsApp()">Send Your order via WhatsApp</button>
+
 <script>
-	function sendWhatsApp() {
+  function sendWhatsApp() {
     const number = "919603814661"; // Your WhatsApp number
     const message = encodeURIComponent(document.getElementById("itemList").value);
     const url = `https://wa.me/${number}?text=${message}`;
     window.open(url, '_blank');
-  }<script>
+  }
+</script>
+  </section>
+  
+<section id="basket">
+  <h2>🧺 Fill Your Basket</h2>
+  <p>Select the items you want to buy:</p>
+  <div id="pickerContainer">
+    <!-- Initial picker group will be added by JS -->
+  </div>
+  <br>
+  <button onclick="addPicker()">+ Add Another Item</button>
+  <button onclick="confirmBasket()">✅ Confirm</button>
+  <p id="basketMessage"></p>
+</section>
 
+
+  <footer>
+    <h2>📞 Contact Us</h2>
+    <div class="footer-contact">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="gundusubbarao4@gmail.com" readonly>
+
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" placeholder="+91 9247245817" readonly>
+
+      <label>Store Timings:</label>
+      <p>Monday–Sunday: 7 AM – 9 PM<br>Optional Holidays on Tuesday</p>
+
+      <label>Location:</label>
+      <p>Perupalem Line,Linepalem,Perupalem South Panchayat,AP,534281</p>
+	  <label>Find Us on Google Maps:</label>
+<p>
+  <a href="https://www.google.com/maps/place/Gundu+Chinna+manikyala+rao+kirana+stores/@16.3713225,81.5684614,19.55z/data=!4m6!3m5!1s0x3a37d5b8a3d2cd1b:0xf8f925df4b92a08!8m2!3d16.3711174!4d81.5679957!16s%2Fg%2F11h348c8k1?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color: #ffcc00;">
+    📍 View Location
+  </a>
+</p>
+    </div>
+  </footer>
+<script>
 function addPicker() {
   const container = document.getElementById('pickerContainer');
 
@@ -210,38 +248,10 @@ function confirmBasket() {
   }
 
   const message = encodeURIComponent("Hello Shree Kirana,\nI would like to order:\n" + items.join("\n"));
-  const phoneNumber = "919876543210"; // Replace with your WhatsApp number
+  const phoneNumber = "919603814661"; // Replace with your WhatsApp number
   const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
   window.open(whatsappURL, '_blank');
 }
 </script>
-</section>
-
-  <footer>
-    <h2>📞 Contact Us</h2>
-    <div class="footer-contact">
-      <label for="email">Email:</label>
-      <input type="email" id="email" placeholder="gundusubbarao4@gmail.com" readonly>
-
-      <label for="phone">Phone:</label>
-      <input type="text" id="phone" placeholder="+91 9247245817" readonly>
-
-      <label>Store Timings:</label>
-      <p>Monday–Sunday: 7 AM – 9 PM<br>Optional Holidays on Tuesday</p>
-
-      <label>Location:</label>
-      <p>Perupalem Line,Linepalem,Perupalem South Panchayat,AP,534281</p>
-	  <label>Find Us on Google Maps:</label>
-<p>
-  <a href="https://www.google.com/maps/place/Gundu+Chinna+manikyala+rao+kirana+stores/@16.3713225,81.5684614,19.55z/data=!4m6!3m5!1s0x3a37d5b8a3d2cd1b:0xf8f925df4b92a08!8m2!3d16.3711174!4d81.5679957!16s%2Fg%2F11h348c8k1?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color: #ffcc00;">
-    📍 View Location
-  </a>
-</p>
-    </div>
-  </footer>
-
 </body>
 </html>
-
-
-
