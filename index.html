@@ -90,17 +90,22 @@
     }
 	.picker-group {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
 }
-.item-picker {
-  flex: 1;
+.item-picker, .quantity-input {
   padding: 10px;
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  background: linear-gradient(to bottom, #fff, #f0f0f0);
+}
+.quantity-input {
+  width: 80px;
+}
+.unit-label {
+  font-weight: bold;
 }
 .remove-btn {
   padding: 8px 12px;
@@ -132,11 +137,11 @@
       <li>Cleaning Supplies</li>
     </ul>
     <div class="product-gallery">
-      <img src="221C0982-1CA5-477C-AE05-F386E9016DD2.jpeg" alt="Image 1">
-      <img src="C84161A9-5922-46A9-AA09-714507418129.jpeg" alt="Image 2">
-      <img src="5609902A-BD5E-47B6-8078-DE36724E7979.jpeg" alt="Image 3">
-	  <img src="DF1EE385-E7D5-43C0-9594-1C92886E10BE.jpeg" alt="Image 4">		
-    </div></section>
+      <img src="https://via.placeholder.com/150?text=Rice+Bags" alt="Rice Bags">
+      <img src="https://via.placeholder.com/150?text=Spices" alt="Spices">
+      <img src="https://via.placeholder.com/150?text=Snacks" alt="Snacks">
+    </div>
+  </section>
 
   <section class="owner">
     <h2>👨‍💼 About Us</h2>
@@ -162,16 +167,13 @@
   
 <section id="basket">
   <h2>🧺 Fill Your Basket</h2>
-  <p>Select the items you want to buy:</p>
-  <div id="pickerContainer">
-    <!-- Initial picker group will be added by JS -->
-  </div>
+  <p>Select items and quantities:</p>
+  <div id="pickerContainer"></div>
   <br>
   <button onclick="addPicker()">+ Add Another Item</button>
   <button onclick="confirmBasket()">✅ Confirm</button>
   <p id="basketMessage"></p>
 </section>
-
 
   <footer>
     <h2>📞 Contact Us</h2>
@@ -196,6 +198,18 @@
     </div>
   </footer>
 <script>
+const itemsByCategory = {
+  Groceries: ['Rice', 'Wheat Flour', 'Toor Dal', 'Tea Powder'],
+  Liquids: ['Cooking Oil', 'Milk'],
+  Countables: ['Eggs', 'Soap', 'Shampoo', 'Maggi Noodles', 'Biscuits']
+};
+
+function getUnit(item) {
+  if (itemsByCategory.Groceries.includes(item)) return 'kg';
+  if (itemsByCategory.Liquids.includes(item)) return 'L';
+  return 'pcs';
+}
+
 function addPicker() {
   const container = document.getElementById('pickerContainer');
 
@@ -204,19 +218,32 @@ function addPicker() {
 
   const select = document.createElement('select');
   select.className = 'item-picker';
-  select.innerHTML = `
-    <option disabled selected>Select an item</option>
-    <option>Rice (1kg)</option>
-    <option>Wheat Flour (1kg)</option>
-    <option>Toor Dal (500g)</option>
-    <option>Cooking Oil (1L)</option>
-    <option>Maggi Noodles</option>
-    <option>Detergent Powder</option>
-    <option>Biscuits</option>
-    <option>Soap</option>
-    <option>Shampoo</option>
-    <option>Tea Powder</option>
-  `;
+  select.innerHTML = `<option disabled selected>Select an item</option>`;
+  Object.entries(itemsByCategory).forEach(([category, items]) => {
+    const optGroup = document.createElement('optgroup');
+    optGroup.label = category;
+    items.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item;
+      option.textContent = item;
+      optGroup.appendChild(option);
+    });
+    select.appendChild(optGroup);
+  });
+
+  const quantityInput = document.createElement('input');
+  quantityInput.type = 'number';
+  quantityInput.min = '1';
+  quantityInput.placeholder = 'Qty';
+  quantityInput.className = 'quantity-input';
+
+  const unitLabel = document.createElement('span');
+  unitLabel.className = 'unit-label';
+  unitLabel.innerText = '';
+
+  select.onchange = () => {
+    unitLabel.innerText = getUnit(select.value);
+  };
 
   const removeBtn = document.createElement('button');
   removeBtn.className = 'remove-btn';
@@ -224,21 +251,26 @@ function addPicker() {
   removeBtn.onclick = () => container.removeChild(pickerGroup);
 
   pickerGroup.appendChild(select);
+  pickerGroup.appendChild(quantityInput);
+  pickerGroup.appendChild(unitLabel);
   pickerGroup.appendChild(removeBtn);
   container.appendChild(pickerGroup);
 }
 
-// Add one picker by default on page load
+// Load one picker on page load
 window.onload = addPicker;
 
 function confirmBasket() {
-  const pickers = document.querySelectorAll('.item-picker');
+  const pickers = document.querySelectorAll('.picker-group');
   const items = [];
 
-  pickers.forEach(picker => {
-    const value = picker.value;
-    if (value && value !== "Select an item") {
-      items.push(value);
+  pickers.forEach(group => {
+    const item = group.querySelector('.item-picker').value;
+    const qty = group.querySelector('.quantity-input').value;
+    const unit = group.querySelector('.unit-label').innerText;
+
+    if (item && qty) {
+      items.push(`${item} - ${qty} ${unit}`);
     }
   });
 
@@ -247,11 +279,12 @@ function confirmBasket() {
     return;
   }
 
-  const message = encodeURIComponent("Hello Shree Kirana,\nI would like to order:\n" + items.join("\n"));
+  const message = encodeURIComponent("Hello Gundu Kirana,\nI would like to order:\n" + items.join("\n"));
   const phoneNumber = "919603814661"; // Replace with your WhatsApp number
   const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
   window.open(whatsappURL, '_blank');
 }
+</script>
 </script>
 </body>
 </html>
